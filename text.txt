@@ -1,0 +1,66 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <iomanip>
+
+class Employee {
+public:
+    std::string name;
+    double hourlyRate;
+    double hoursWorked;
+
+    Employee(std::string n, double rate) : name(n), hourlyRate(rate), hoursWorked(0) {}
+
+    double calculateSalary() const {
+        return hourlyRate * hoursWorked;
+    }
+};
+
+void addEmployee(std::vector<Employee>& employees) {
+    std::string name;
+    double hourlyRate;
+
+    std::cout << "Enter employee name: ";
+    std::cin >> name;
+    std::cout << "Enter hourly rate: ";
+    std::cin >> hourlyRate;
+
+    employees.push_back(Employee(name, hourlyRate));
+
+    std::cout << "Employee added successfully!" << std::endl;
+}
+
+void displayEmployees(const std::vector<Employee>& employees) {
+    std::cout << "Employee List:" << std::endl;
+    for (const Employee& employee : employees) {
+        std::cout << "Name: " << employee.name << "\nSalary: $" << employee.calculateSalary() << std::endl;
+        std::cout << "----------------" << std::endl;
+    }
+}
+
+int main() {
+    std::vector<Employee> employees;
+
+    int choice;
+    while (true) {
+        std::cout << "Menu:\n1. Add Employee\n2. Display Employees\n3. Exit\n";
+        std::cout << "Enter your choice: ";
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1:
+                addEmployee(employees);
+                break;
+            case 2:
+                displayEmployees(employees);
+                break;
+            case 3:
+                std::cout << "Exiting the program." << std::endl;
+                return 0;
+            default:
+                std::cout << "Invalid choice. Please select again." << std::endl;
+        }
+    }
+
+    return 0;
+}
